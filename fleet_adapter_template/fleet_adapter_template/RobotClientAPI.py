@@ -99,7 +99,12 @@ class RobotAPI:
             # # print(f"Error sending navigation request: {e}")
             return False
 
-    def start_process(self, robot_name: str, process: str, map_name: str):
+    def start_activity(
+        self,
+        robot_name: str,
+        activity: str,
+        label: str
+    ):
         ''' Request the robot to begin a process. This is specific to the robot
             and the use case. For example, load/unload a cart for Deliverybot
             or begin cleaning a zone for a cleaning robot.
@@ -193,3 +198,18 @@ class RobotAPI:
         except Exception as err:
             print(f'Other error: {err}')
         return None
+
+
+class RobotUpdateData:
+    ''' Update data for a single robot. '''
+    def __init__(self,
+                 robot_name: str,
+                 map: str,
+                 position: list[float],
+                 battery_soc: float,
+                 requires_replan: bool | None = None):
+        self.robot_name = robot_name
+        self.position = position
+        self.map = map
+        self.battery_soc = battery_soc
+        self.requires_replan = requires_replan
