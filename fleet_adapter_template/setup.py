@@ -1,4 +1,6 @@
 from setuptools import setup
+import os
+from glob import glob
 
 package_name = 'fleet_adapter_template'
 
@@ -11,6 +13,7 @@ setup(
             ['resource/' + package_name]),
         ('share/' + package_name, ['package.xml']),
         ('share/' + package_name,['config.yaml']),
+        (os.path.join('share', package_name, 'launch'), glob('launch/*.launch.xml')),
 
     ],
     install_requires=['setuptools'],
@@ -22,7 +25,8 @@ setup(
     tests_require=['pytest'],
     entry_points={
         'console_scripts': [
-            'fleet_adapter=fleet_adapter_template.fleet_adapter:main'
+            'fleet_adapter=fleet_adapter_template.fleet_adapter:main',
+            'fleet_manager=fleet_adapter_template.fleet_manager:main',
         ],
     },
 )
